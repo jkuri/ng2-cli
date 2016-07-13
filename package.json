@@ -1,0 +1,17 @@
+{
+  "name": "acli",
+  "version": "1.0.0",
+  "description": "angular-cli alternative made with vorpal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jan Kuri <jkuri88@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^0.30.0",
+    "glob": "^7.0.5",
+    "npm": "^3.10.5",
+    "vorpal": "^1.11.2"
+  }
+}
