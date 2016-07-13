@@ -6,6 +6,7 @@ process.chdir(process.cwd());
 
 require('./ng2/commands/new')(cli);
 require('./ng2/commands/serve')(cli);
+require('./ng2/commands/build')(cli);
 require('./ng2/commands/info')(cli);
 require('./ng2/commands/pwd')(cli);
 require('./ng2/commands/cd')(cli);

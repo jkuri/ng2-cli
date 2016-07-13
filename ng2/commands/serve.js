@@ -1,11 +1,11 @@
 'use strict';
 
-const dir     = require('../lib/dir');
-const utils   = require('../lib/utils');
-const path    = require('path');
-const chalk   = require('chalk');
-const webpack = require('webpack');
-const webpser = require('webpack-dev-server');
+const dir         = require('../lib/dir');
+const utils       = require('../lib/utils');
+const path        = require('path');
+const chalk       = require('chalk');
+const webpack     = require('webpack');
+const webpser     = require('webpack-dev-server');
 
 let server;
 
@@ -20,19 +20,15 @@ module.exports = (cli, config) => {
       }
     })
     .action((args, cb) => {
-      let webpackConfig = require('../config/webpack/webpack.config.js');
+      let config = require('../config/webpack/webpack.config.js');
+      let compiler = webpack(config);      
 
-      let compiler = webpack(webpackConfig);
       server = new webpser(compiler, {
-        open: true,
-        stats: {
-          colors: true
-        }
+        stats: { colors: true }
       });
 
-      server.listen(4200, 'localhost', (info) => {
-        cli.ui.log(chalk.green(`Server running at port 4200`));
-      });
+      cli.ui.log(chalk.yellow(`Building...`));
+      server.listen(4200);
     })
     .cancel(() => {
       cli.ui.log(chalk.yellow(`Server successfully stopped.`));
