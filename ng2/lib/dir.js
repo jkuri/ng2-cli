@@ -31,7 +31,7 @@ exports.makeDir = (path, dir) => {
 
 exports.copy = (srcDir, destDir, opts, cli) => {
   if (!srcDir) {
-    srcDir = Path.resolve(process.env.CLI_ROOT, '/ng2/blueprints/app');
+    srcDir = Path.join(process.env.CLI_ROOT, 'ng2/blueprints/app');
   }
   let options = {
     clobber: true
