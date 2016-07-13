@@ -20,7 +20,7 @@ module.exports = (cli, config) => {
       }
     })
     .action((args, cb) => {
-      let config = require('../config/webpack/webpack.config.js');
+      let config = require(path.resolve(process.envPWD, 'config/webpack/webpack.config.js');
       let compiler = webpack(config);      
 
       server = new webpser(compiler, {
