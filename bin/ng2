@@ -2,6 +2,7 @@
 'use strict';
 
 process.title = 'angular-cli';
+process.env.PWD = process.env.PWD || process.cwd();
 
 const resolve     = require('resolve');
 const exit        = require('exit');
