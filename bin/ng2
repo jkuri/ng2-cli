@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 'use strict';
 
+const path = require('path');
+
 process.title = 'angular-cli';
 process.env.PWD = process.env.PWD || process.cwd();
+process.env.CLI_ROOT = process.env.CLI_ROOT || path.resolve(__dirname, '..');
 
 const resolve     = require('resolve');
 const exit        = require('exit');
