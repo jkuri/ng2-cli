@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+'use strict';
+
+process.title = 'angular-cli';
+
+const resolve     = require('resolve');
+const exit        = require('exit');
+const packageJson = require('../package.json');
+
+resolve('angular-cli', { basedir: process.cwd() },
+  function (error, projectLocalCli) {
+    let cli;
+    if (error) {
+      cli = require('../ng2');
+    } else {
+      cli = require(projectLocalCli);
+    }
+
+    return cli;
+  }
+);

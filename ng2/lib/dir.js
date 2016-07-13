@@ -1,9 +1,15 @@
 'use strict';
 
+const Fs      = require('fs');
 const Fse     = require('fs-extra');
 const Path    = require('path');
 const Glob    = require('glob');
 const Helper  = require('./helper');
+
+exports.isDir = (path) => {
+  const stats = Fs.statSync(Path.resolve(path));
+  return stats.isDirectory();
+};
 
 exports.joinPath = (path, dir) => {
   const p = Path.join(path, dir);

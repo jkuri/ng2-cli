@@ -12,7 +12,7 @@ module.exports = {
     app: './src/main'
   }, 
   output: {
-    path: 'build/',
+    path: Path.resolve('./build'),
     publicPath: '',
     filename: '[name].bundle.js'
   },

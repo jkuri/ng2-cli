@@ -11,7 +11,7 @@ let server;
 
 module.exports = (cli, config) => {
   return cli
-    .command('build', 'Builds your app and places it into the output path (build/ by default).')
+    .command('serve', 'Build and serves your app')
     .option('--path, -p <path>', 'Destination path.')
     .validate((args, cb) => {
       if (!dir.isDirBuildable()) {
@@ -20,10 +20,15 @@ module.exports = (cli, config) => {
       }
     })
     .action((args, cb) => {
-      let webpackConfig = require(path.resolve(process.cwd(), 'webpack.config.js'));
+      let webpackConfig = require('../config/webpack/webpack.config.js');
 
       let compiler = webpack(webpackConfig);
-      server = new webpser(compiler);
+      server = new webpser(compiler, {
+        open: true,
+        stats: {
+          colors: true
+        }
+      });
 
       server.listen(4200, 'localhost', (info) => {
         cli.ui.log(chalk.green(`Server running at port 4200`));
