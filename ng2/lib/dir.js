@@ -57,3 +57,8 @@ exports.copy = (srcDir, destDir, opts, cli) => {
 exports.isInitializable = (dir) => {
   return true;
 };
+
+exports.isDirBuildable = (dir) => {
+  let config = Path.join(process.cwd(), 'angular-cli.json');
+  return (Helper.existsSync(config)) ? true : false;
+};

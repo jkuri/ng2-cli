@@ -9,16 +9,17 @@
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noImplicitAny": false,
-    "outDir": "../dist/",
-    "rootDir": ".",
+    "outDir": "../build/",
+    "rootDir": "../",
     "sourceMap": true,
     "target": "es5",
     "inlineSources": true
   },
-
   "files": [
-    "main.ts",<% if (isMobile) { %>
-    "main-app-shell.ts",<% } %>
+    "main.ts",
     "typings.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

@@ -1,7 +1,9 @@
 'use strict';
 
-const dir = require('../lib/dir');
-const npm = require('../lib/npm');
+const dir   = require('../lib/dir');
+const npm   = require('../lib/npm');
+const utils = require('../lib/utils');
+const chalk = require('chalk');
 
 module.exports = (cli, config) => {
   return cli
@@ -38,33 +40,27 @@ module.exports = (cli, config) => {
       params.name = params.name.toLowerCase();
       const fullPath = dir.joinPath(params.path, params.name);
 
-      dir.makeDir(params.path, params.name).
-      then(() => {
-        cli.ui.log(`Directory successfully initialized at ${fullPath}.`);
-      }, err => {
-        cli.ui.log(`Unable to make directory at ${fullPath} (${err}).`);
+      dir.makeDir(params.path, params.name)
+      .then(() => cli.ui.log(chalk.green(`Directory successfully initialized at ${fullPath}.`)))
+      .then(() => {
+        cli.ui.log(chalk.yellow(`Copying project files into destination directory.`));
+        return dir.copy(null, fullPath, null, cli);
+      })
+      .then(() => {
+        process.chdir(fullPath);
+        cli.ui.log(chalk.yellow('Installing npm dependencies, this can take a while...'));
+        return npm.install(null, cli);
+      })
+      .then(() => {
+         cli.ui.log(chalk.green('Project successfully initialized.'));
+         cb();
+      })
+      .catch(err => {
+        cli.ui.log(chalk.red(err));
         cb();
-      }).
-      then(() => {
-        cli.ui.log(`Copying project files into destination directory.`);
-        dir.copy(null, fullPath, null, cli)
-        .then(() => {
-          process.chdir(fullPath);
-          cli.ui.log('Installing npm dependencies, this can take a while...');
-          npm.install().
-          then(() => {
-            cli.ui.log('Done.');
-            cb();
-          }, err => {
-            cli.ui.log(err);
-            cb();
-          });
-        }, err => {
-          cli.ui.log(`Unable to copy files (${err}).`);
-        })
       });
     })
     .cancel(() => {
-
+      utils.stopSpinner();
     });
 };
