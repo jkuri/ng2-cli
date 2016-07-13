@@ -21,34 +21,14 @@ exports.npm = function npm(command, npmArgs, options, npm) {
   }
 
   return new Promise((resolve, reject) => {
-    // lib.load({ logLevel: 'silent' }, {
-    //   loaded: false
-    // }, (err) => {
-    //   console.log(err);
-    //   lib.commands.install(npmArgs, (err, data) => {
-    //     console.log(err);
-    //     console.log(data);
-    //   });
-    // });
-
-
     process.argv[0] = 'npm';
 
-    npm.load({ logLevel: 'verbose' }, function(err) {
+    npm.load({ logLevel: 'verbose' }, (err) => {
       npm.commands.install('', [], (err) => {
         console.log(err);
       });
     });
   });
-
-  // var load = Promise.denodeify(lib.load);
-
-  // return load(options)
-  //   .then(function() {
-  //     var operation = Promise.denodeify(lib.commands[command]);
-
-  //     return operation(npmArgs || []);
-  //   });
 };
 
 exports.install = (opts) => {
