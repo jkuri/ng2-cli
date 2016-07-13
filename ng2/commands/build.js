@@ -13,7 +13,7 @@ module.exports = (cli, config) => {
   return cli
     .command('build', 'Builds your app')
     .action((args, cb) => {
-      let webpackConfig = require(path.resolve(process.env.CLI_ROOT, 'config/webpack/webpack.config.js');
+      let webpackConfig = require(path.resolve(process.env.CLI_ROOT, 'config/webpack/webpack.config.js'));
       let compiler = webpack(webpackConfig);
 
       cli.ui.log(chalk.yellow(`Building...`));
