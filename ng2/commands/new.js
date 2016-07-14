@@ -39,7 +39,7 @@ module.exports = (cli, config) => {
       dir.makeDir(params.path, params.name)
       .then(() => cli.ui.log(chalk.green(`Directory successfully initialized at ${fullPath}.`)))
       .then(() => {
-        cli.ui.log(chalk.yellow(`Copying project files into destination directory.`));
+        cli.ui.log(chalk.yellow('Copying project files into destination directory.'));
         return dir.copy(null, fullPath, null, cli);
       })
       .then(() => {
@@ -48,8 +48,8 @@ module.exports = (cli, config) => {
         return npm.install(null, cli);
       })
       .then(() => {
-         cli.ui.log(chalk.green('Project successfully initialized.'));
-         cb();
+        cli.ui.log(chalk.green('Project successfully initialized.'));
+        cb();
       })
       .catch(err => {
         cli.ui.log(chalk.red(err));

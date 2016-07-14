@@ -44,7 +44,7 @@ module.exports = {
       filename: 'index.html',
       chunksSortMode: 'dependency',
       dev: true
-    }),
+    })
   ],
   tslint: {
     emitErrors: true,

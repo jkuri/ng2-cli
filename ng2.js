@@ -1,7 +1,6 @@
 'use strict';
 
 const instances = require('./ng2/lib/instances');
-const chalk     = require('chalk');
 
 process.chdir(process.cwd());
 

@@ -1,7 +1,5 @@
 'use strict';
 
-const dir       = require('../lib/dir');
-const utils     = require('../lib/utils');
 const path      = require('path');
 const chalk     = require('chalk');
 const webpack   = require('webpack');
@@ -43,7 +41,7 @@ module.exports = (cli, config) => {
           });
 
           let s = moment.duration(stats.time).seconds();
-          let millis   = moment.duration(stats.time).milliseconds();
+          let millis = moment.duration(stats.time).milliseconds();
           cli.ui.log(chalk.green(`Build project successfully in ${s}.${millis}s.`));
         }
 
@@ -52,6 +50,6 @@ module.exports = (cli, config) => {
 
     })
     .cancel(() => {
-      cli.ui.log(chalk.red(`Build has been canceled.`));
+      cli.ui.log(chalk.red('Build has been canceled.'));
     });
 };

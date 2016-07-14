@@ -21,7 +21,7 @@ module.exports = (s) => {
     })
     .validate((args, cb) => {
       if (!dir.isDirBuildable()) {
-        s.ui.log(chalk.yellow(`Cannot run server outside of the project directory.`));
+        s.ui.log(chalk.yellow('Cannot run server outside of the project directory.'));
         return false;
       }
     })
@@ -51,7 +51,7 @@ module.exports = (s) => {
       cb();
     })
     .cancel(() => {
-      s.ui.log(chalk.yellow(`Server successfully stopped.`));
+      s.ui.log(chalk.yellow('Server successfully stopped.'));
       server.close();
     });
 };

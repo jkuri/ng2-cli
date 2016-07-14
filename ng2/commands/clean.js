@@ -10,7 +10,7 @@ module.exports = (cli, config) => {
     .action((args, cb) => {
       let path = Path.resolve(process.cwd(), 'build');
       if (Dir.isDir(path) && Dir.removeDir(path)) {
-        cli.ui.log(Chalk.yellow(`build/ directory successfully deleted.`));
+        cli.ui.log(Chalk.yellow('build/ directory successfully deleted.'));
       }
 
       cb();

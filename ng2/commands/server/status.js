@@ -9,7 +9,7 @@ module.exports = (server) => {
       if (server.status) {
         server.ui.log(chalk.yellow(`Server is running on port ${server.port}.`));
       } else {
-        server.ui.log(chalk.yellow(`Server is not running.`));
+        server.ui.log(chalk.yellow('Server is not running.'));
       }
 
       cb();
