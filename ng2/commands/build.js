@@ -1,11 +1,12 @@
 'use strict';
 
-const dir     = require('../lib/dir');
-const utils   = require('../lib/utils');
-const path    = require('path');
-const chalk   = require('chalk');
-const webpack = require('webpack');
-const moment  = require('moment');
+const dir       = require('../lib/dir');
+const utils     = require('../lib/utils');
+const path      = require('path');
+const chalk     = require('chalk');
+const webpack   = require('webpack');
+const moment    = require('moment');
+const progress  = require('webpack/lib/ProgressPlugin');
 
 let server;
 
@@ -13,15 +14,20 @@ module.exports = (cli, config) => {
   return cli
     .command('build', 'Builds your app')
     .action((args, cb) => {
-      let webpackConfig = require(path.join(process.env.CLI_ROOT, 'ng2/config/webpack/webpack.config.js'));
+      let webpackConfig = require(path.join(process.env.CLI_ROOT, 'ng2/config/webpack/webpack.prod.js'));
       let compiler = webpack(webpackConfig);
 
-      cli.ui.log(chalk.yellow(`Building...`));
-      utils.startSpinner();
+      compiler.apply(new progress((percentage, msg) => {
+        if (percentage !== 1) {
+          cli.ui.redraw(`Building: ${Math.ceil(percentage * 100)}%`);
+        } else {
+          cli.ui.redraw.clear();
+          cli.ui.redraw.done();
+        }
+      }));
 
       compiler.run((err, stats) => {
         if (err) {
-          utils.stopSpinner();
           cli.ui.log(chalk.red(err));
         } else {
           stats = stats.toJson({
@@ -38,9 +44,9 @@ module.exports = (cli, config) => {
             errorDetails: false
           });
 
-          utils.stopSpinner();
-          let time = moment.duration(stats.time).seconds();
-          cli.ui.log(chalk.green(`Build project successfully. \nBuild Time: ${time}s`));
+          let s = moment.duration(stats.time).seconds();
+          let millis   = moment.duration(stats.time).milliseconds();
+          cli.ui.log(chalk.green(`Build project successfully in ${s}.${millis}s.`));
         }
 
         cb();
@@ -48,6 +54,6 @@ module.exports = (cli, config) => {
 
     })
     .cancel(() => {
-      cli.ui.log(chalk.red(`Build has stopped.`));
+      cli.ui.log(chalk.red(`Build has been canceled.`));
     });
 };

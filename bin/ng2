@@ -8,8 +8,6 @@ process.env.PWD = process.env.PWD || process.cwd();
 process.env.CLI_ROOT = process.env.CLI_ROOT || path.resolve(__dirname, '..');
 
 const resolve     = require('resolve');
-const exit        = require('exit');
-const packageJson = require('../package.json');
 
 resolve('angular-cli', { basedir: process.cwd() },
   function (error, projectLocalCli) {

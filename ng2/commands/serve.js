@@ -20,7 +20,7 @@ module.exports = (cli, config) => {
       }
     })
     .action((args, cb) => {
-      let config = require(path.join(process.env.CLI_ROOT, 'ng2/config/webpack/webpack.config.js'));
+      let config = require(path.join(process.env.CLI_ROOT, 'ng2/config/webpack/webpack.dev.js'));
       let compiler = webpack(config);      
 
       server = new webpser(compiler, {
