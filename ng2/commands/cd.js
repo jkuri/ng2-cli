@@ -1,21 +1,17 @@
 'use strict';
 
-const chalk = require('chalk');
-const path  = require('path');
-const dir   = require('../lib/dir');
+const Chalk = require('chalk');
+const Path  = require('path');
+const Dir   = require('../lib/dir');
 
 module.exports = (cli, config) => {
   return cli
-    .command('cd', 'Change current working directory.')
-    .option('--path, -p <path>', 'Path')
+    .command('cd [path]', 'Change current working directory.')
     .action((args, cb) => {
-      let params = args.options;
-
-      if (dir.isDir(params.path)) {
-        process.chdir(params.path);
-        cli.ui.log(chalk.yellow(`Current working directory: ${path.resolve(process.cwd())}`));
-      } else {
-        cli.ui.log(chalk.red(`Directory does not exists.`));
+      const path = args.path;
+      if (Dir.isDir(path)) {
+        process.chdir(path);
+        cli.ui.log(Chalk.yellow(`Current working directory: ${Path.resolve(process.cwd())}`));
       }
 
       cb();

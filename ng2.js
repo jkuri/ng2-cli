@@ -1,17 +1,27 @@
 'use strict';
 
-const cli   = require('vorpal')();
-const chalk = require('chalk');
+const instances = require('./ng2/lib/instances');
+const chalk     = require('chalk');
 
 process.chdir(process.cwd());
 
-require('./ng2/commands/new')(cli);
-require('./ng2/commands/serve')(cli);
-require('./ng2/commands/build')(cli);
-require('./ng2/commands/info')(cli);
-require('./ng2/commands/pwd')(cli);
-require('./ng2/commands/cd')(cli);
-require('./ng2/commands/clear')(cli);
+let main    = instances.create('main', 'ng2$');
+let server  = instances.create('server', 'ng2-serve$');
 
-cli.delimiter(chalk.bold('ng2$')).show();
-cli.show().parse(process.argv);
+server.status = false;
+
+require('./ng2/commands/new')(main);
+require('./ng2/commands/build')(main);
+require('./ng2/commands/info')(main);
+require('./ng2/commands/pwd')(main);
+require('./ng2/commands/cd')(main);
+require('./ng2/commands/clear')(main);
+require('./ng2/commands/clean')(main);
+require('./ng2/commands/server')(main, server);
+require('./ng2/commands/server/start')(server);
+require('./ng2/commands/server/status')(server);
+require('./ng2/commands/server/stop')(server);
+require('./ng2/commands/clear')(server);
+require('./ng2/commands/server/quit')(server, main);
+
+main.show();

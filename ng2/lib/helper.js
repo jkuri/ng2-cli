@@ -10,3 +10,8 @@ exports.existsSync = (path) => {
     return false;
   }
 };
+
+exports.isInt = (value) => {
+  return !isNaN(value);
+}
+

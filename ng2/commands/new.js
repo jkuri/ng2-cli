@@ -7,7 +7,7 @@ const chalk = require('chalk');
 
 module.exports = (cli, config) => {
   return cli
-    .command('new', 'Generate new Angular2 project')
+    .command('new', 'Generate new Angular2 project.')
     .option('--name, -n <name>', 'Name of a project')
     .option('--path, -p <path>', 'Destination path.')
     .option('--skip-npm, -sn', 'Skip npm packages installation.')

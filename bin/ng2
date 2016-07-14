@@ -17,7 +17,7 @@ resolve('angular-cli', { basedir: process.cwd() },
     } else {
       cli = require(projectLocalCli);
     }
-
+    
     return cli;
   }
 );

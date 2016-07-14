@@ -8,14 +8,12 @@ const webpack   = require('webpack');
 const moment    = require('moment');
 const progress  = require('webpack/lib/ProgressPlugin');
 
-let server;
-
 module.exports = (cli, config) => {
   return cli
-    .command('build', 'Builds your app')
+    .command('build', 'Builds your app.')
     .action((args, cb) => {
-      let webpackConfig = require(path.join(process.env.CLI_ROOT, 'ng2/config/webpack/webpack.prod.js'));
-      let compiler = webpack(webpackConfig);
+      let config = require(path.join(process.env.CLI_ROOT, 'ng2/config/webpack/webpack.prod.js'));
+      let compiler = webpack(config);
 
       compiler.apply(new progress((percentage, msg) => {
         if (percentage !== 1) {

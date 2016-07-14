@@ -5,10 +5,32 @@ const Fse     = require('fs-extra');
 const Path    = require('path');
 const Glob    = require('glob');
 const Helper  = require('./helper');
+const Chalk   = require('chalk');
 
 exports.isDir = (path) => {
-  const stats = Fs.statSync(Path.resolve(path));
-  return stats.isDirectory();
+  path = Path.resolve(path);
+
+  try {
+    const stats = Fs.statSync(path);
+    return stats.isDirectory();
+  } catch (e) {
+    console.log(Chalk.red(`Directory ${path} does not exists.`));
+    return false;
+  }
+};
+
+exports.removeDir = (path) => {
+  path = Path.resolve(path);
+
+  try {
+    if (this.isDir(path)) {
+      Fse.remove(path);
+      return true;
+    }
+  } catch (e) {
+    console.log(Chalk.red(`Error while deleting ${path} (${e}).`));
+    return false;
+  }
 };
 
 exports.joinPath = (path, dir) => {
