@@ -7,6 +7,7 @@ const path        = require('path');
 const chalk       = require('chalk');
 const webpack     = require('webpack');
 const webserv     = require('webpack-dev-server');
+const open        = require('open');
 
 let server;
 let isRunning = false;
@@ -30,16 +31,11 @@ module.exports = (s) => {
       let compiler = webpack(config);      
 
       server = new webserv(compiler, {
+        contentBase: './src',
         quiet: true,
         watchOptions: {
           aggregateTimeout: 1000,
           poll: 100
-        },
-        proxy: {
-          './**': {
-            target: 'http://localhost:4200/webpack-dev-server',
-            secure: false
-          }
         }
       });
 
@@ -47,6 +43,7 @@ module.exports = (s) => {
         s.status = true;
         s.port = port;
         s.ui.log(chalk.yellow(`Server running at port ${port}`));
+        open(`http://localhost:${port}`);
       });
 
       s.server = server;

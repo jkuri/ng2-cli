@@ -35,7 +35,7 @@ exports.removeDir = (path) => {
 
 exports.joinPath = (path, dir) => {
   const p = Path.join(path, dir);
-  return (!Path.isAbsolute(p)) ? Path.absolute(p) : p;
+  return (!Path.isAbsolute(p)) ? Path.resolve(p) : p;
 };
 
 exports.makeDir = (path, dir) => {

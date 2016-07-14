@@ -7,8 +7,7 @@ const chalk = require('chalk');
 
 module.exports = (cli, config) => {
   return cli
-    .command('new', 'Generate new Angular2 project.')
-    .option('--name, -n <name>', 'Name of a project')
+    .command('new [name]', 'Generate new Angular2 project.')
     .option('--path, -p <path>', 'Destination path.')
     .option('--skip-npm, -sn', 'Skip npm packages installation.')
     .option('--skip-git, -sg', 'Skip git initialization.')
@@ -18,18 +17,14 @@ module.exports = (cli, config) => {
     })
     .validate((args) => {
       let params = args.options;
+      let name = args.name;
       let valid = true;
       
-      if (!params.name) {
+      if (!name) {
         cli.ui.log('- project name is mandatory');
         valid = false;
-      } else if (params.name.length < 2) {
+      } else if (name.length < 2) {
         cli.ui.log('- name of a project must be at least 2 chars long.');
-        valid = false;
-      }
-
-      if (!params.path || params.path.length < 2 && params.name.length < 2) {
-        cli.ui.log('- destination directory is not specified.');
         valid = false;
       }
 
@@ -37,7 +32,8 @@ module.exports = (cli, config) => {
     })
     .action((args, cb) => {
       let params = args.options;
-      params.name = params.name.toLowerCase();
+      params.name = args.name;
+      params.path = params.parh ? params.path : '.';
       const fullPath = dir.joinPath(params.path, params.name);
 
       dir.makeDir(params.path, params.name)

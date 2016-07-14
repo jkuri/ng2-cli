@@ -9,7 +9,9 @@ module.exports = (server) => {
     .action((args, cb) => {
       if (server.status) {
         server.server.close();
-        console.log(server.server);
+        server.status = false;
+        server.port = null;
+        server.ui.log(chalk.green(`Server successfully stopped.`));
       } else {
         server.ui.log(chalk.red(`Cannot stop the server as it is not running.`));
       }

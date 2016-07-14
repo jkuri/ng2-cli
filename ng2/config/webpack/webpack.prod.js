@@ -1,10 +1,10 @@
 'use strict';
 
-const webpack           = require('webpack');
-const Path              = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const WebpackMd5        = require('webpack-md5-hash');
+const webpack             = require('webpack');
+const Path                = require('path');
+const HtmlWebpackPlugin   = require('html-webpack-plugin');
+const WebpackMd5          = require('webpack-md5-hash');
+const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 
 module.exports = {
   debug: false,
@@ -25,19 +25,20 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.ts', '.js', '.json'],
-    root: '.',
+    root: Path.resolve('./src'),
     moduleDirectories: ['node_modules']
   },
   module: {
     loaders: [
-      { test: /\.ts$/, loaders: ['ts?silent=true', 'angular2-template-loader'] },
+      { test: /\.ts$/, loaders: ['awesome-typescript-loader', 'angular2-template-loader'] },
       { test: /\.html$/, loader: 'html' },
       { test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/, loader: 'file?name=assets/[name].[hash].[ext]' },
-      { test: /\.css$/, exclude: Path.resolve('src', 'app'), loader: ExtractTextPlugin.extract('style', 'css?sourceMap') },
-      { test: /\.css$/, include: Path.resolve('src', 'app'), loader: 'raw' }
+      { test: /\.css$/, include: Path.resolve('src', 'app'), loader: 'raw' },
+      { test: /\.json$/, loader: 'json-loader' }
     ]
   },
   plugins: [
+    new TsConfigPathsPlugin(),
     new WebpackMd5(),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'polyfills']
