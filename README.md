@@ -3,7 +3,7 @@
 ### Installation
 
 ```sh
-npm i "jkuri/angular-cli-vorpal" --save -g
+npm i "jkuri/angular-cli-vorpal" -g
 ```
 
 ### Usage
