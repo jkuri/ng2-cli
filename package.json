@@ -1,14 +1,13 @@
 {
   "name": "ng2-cli",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "angular-cli alternative made with vorpal",
   "main": "ng2.ts",
   "bin": {
     "ng2": "./bin/ng2"
   },
   "scripts": {
-    "test": "node ./tests/run.js",
-    "lint": "eslint ."
+    "test": "node ./tests/run.js"
   },
   "author": "Jan Kuri <jkuri88@gmail.com>",
   "license": "MIT",
