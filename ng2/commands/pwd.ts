@@ -1,9 +1,7 @@
-'use strict';
+import * as path from 'path';
+import * as chalk from 'chalk';
 
-const chalk = require('chalk');
-const path  = require('path');
-
-module.exports = (cli, config) => {
+export function pwdCommand(cli: any): any {
   return cli
     .command('pwd', 'Return current working directory.')
     .action((args, cb) => {

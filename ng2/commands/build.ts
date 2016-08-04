@@ -1,12 +1,10 @@
-'use strict';
+import * as path from 'path';
+import * as chalk from 'chalk';
+import * as webpack from 'webpack';
+import * as moment from 'moment';
+import * as progress from 'webpack/lib/ProgressPlugin';
 
-const path      = require('path');
-const chalk     = require('chalk');
-const webpack   = require('webpack');
-const moment    = require('moment');
-const progress  = require('webpack/lib/ProgressPlugin');
-
-module.exports = (cli, config) => {
+export function buildCommand(cli: any): any {
   return cli
     .command('build', 'Builds your app.')
     .action((args, cb) => {

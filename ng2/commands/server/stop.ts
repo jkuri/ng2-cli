@@ -1,8 +1,6 @@
-'use strict';
+import * as chalk from 'chalk';
 
-const chalk = require('chalk');
-
-module.exports = (server) => {
+export function stopServerCommand(server: any): any {
   return server
     .command('stop', 'Stops the running server.')
     .alias('kill')

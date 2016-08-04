@@ -1,20 +1,22 @@
-'use strict';
+import * as path from 'path';
+import * as chalk from 'chalk';
+import * as webpack from 'webpack';
+import * as webserv from 'webpack-dev-server';
+import * as open from 'open';
+import { Helper } from '../../lib/helper';
+import { Dir } from '../../lib/dir';
+import { Utils } from '../../lib/utils';
 
-const dir         = require('../../lib/dir');
-const utils       = require('../../lib/utils');
-const helper      = require('../../lib/helper');
-const path        = require('path');
-const chalk       = require('chalk');
-const webpack     = require('webpack');
-const webserv     = require('webpack-dev-server');
-const open        = require('open');
+const helper: any = new Helper();
+const dir: any = new Dir();
+const utils: any = new Utils();
 
-let server;
-let isRunning = false;
+let server: any;
+let isRunning: boolean = false;
 
-module.exports = (s) => {
+export function startServerCommand(s: any): any {
   return s
-    .command('start', 'Build and serves your app')
+    .command('start', 'Builds and serves your app')
     .option('--port, -p <port>', 'Server port.')
     .types({
       string: ['port']

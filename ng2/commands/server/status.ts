@@ -1,8 +1,6 @@
-'use strict';
+import * as chalk from 'chalk';
 
-const chalk = require('chalk');
-
-module.exports = (server) => {
+export function statusServerCommand(server: any): any {
   return server
     .command('status', 'Get the current status of the server.')
     .action((args, cb) => {

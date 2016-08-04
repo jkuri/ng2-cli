@@ -1,16 +1,33 @@
 #!/usr/bin/env node
 'use strict';
 
+const fs = require('fs');
 const path = require('path');
+const ts = require('typescript');
+const resolve = require('resolve');
 
-process.title = 'angular-cli';
+process.title = 'ng2-cli';
 process.env.PWD = process.env.PWD || process.cwd();
 process.env.CLI_ROOT = process.env.CLI_ROOT || path.resolve(__dirname, '..');
 
-const resolve = require('resolve');
+require.extensions['.ts'] = function(m, filename) {
+  const source = fs.readFileSync(filename).toString();
 
-resolve('angular-cli', { basedir: process.cwd() },
-  function (error, projectLocalCli) {
+  try {
+    const result = ts.transpile(source, {
+      target: ts.ScriptTarget.ES5,
+      module: ts.ModuleKind.CommonJs
+    });
+
+    return m._compile(result, filename);
+  } catch (err) {
+    throw err;
+  }
+};
+
+
+resolve('ng2-cli', { basedir: process.cwd() },
+  (error, projectLocalCli) => {
     let cli;
     if (error) {
       cli = require('../ng2');

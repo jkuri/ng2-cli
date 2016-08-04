@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (cli, config) => {
+export function clearCommand(cli: any): any {
   return cli
     .command('clear', 'Clear the terminal screen.')
     .action((args, cb) => {

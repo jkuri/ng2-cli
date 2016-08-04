@@ -1,11 +1,13 @@
-'use strict';
+import { Dir } from '../lib/dir';
+import { Npm } from '../lib/npm';
+import { Utils } from '../lib/utils';
+import * as chalk from 'chalk';
 
-const dir   = require('../lib/dir');
-const npm   = require('../lib/npm');
-const utils = require('../lib/utils');
-const chalk = require('chalk');
+export function newCommand(cli: any): any {
+  const dir: any = new Dir();
+  const npm: any = new Npm();
+  const utils: any = new Utils();
 
-module.exports = (cli, config) => {
   return cli
     .command('new [name]', 'Generate new Angular2 project.')
     .option('--path, -p <path>', 'Destination path.')

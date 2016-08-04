@@ -1,10 +1,9 @@
-'use strict';
+import * as vorpal from 'vorpal';
+import * as chalk from 'chalk';
 
-const vorpal  = require('vorpal');
-const chalk   = require('chalk');
-let instances = {};
+export var instances = {};
 
-exports.create = (name, delimiter) => {
+export function create(name: string, delimiter: string): any {
   if (!instances[name]) {
     if (!delimiter) {
       delimiter = '$';
@@ -15,13 +14,13 @@ exports.create = (name, delimiter) => {
   }
 };
 
-exports.get = (name) => {
+export function get(name: string): any {
   if (instances[name]) {
     return instances[name];
   }
 };
 
-exports.show = (name) => {
+export function set(name: string): any {
   if (instances[name]) {
     instances[name].show();
   }
