@@ -1,9 +1,11 @@
-## Angular-CLI
+## Angular 2 CLI Alternative
+
+Vorpal based CLI for Angular2 applications.
 
 ### Installation
 
 ```sh
-npm i "jkuri/angular-cli-vorpal" -g
+npm i ng2-cli -g
 ```
 
 ### Usage
@@ -25,7 +27,7 @@ Start cli with the `ng2` command.
 Creates new project and steps into directory.
 
 ```sh
-new --name app --path /Users/jan/Desktop
+new app [--path /Users/jan/Desktop]
 ```
 
 #### Available options
@@ -35,17 +37,13 @@ new --name app --path /Users/jan/Desktop
 * `skip-npm` - skips the npm dependencies installation
 * `skip-git` - skips git initialization
 
-## serve
+## server
 
 Serves your application.
 
 ```sh
-serve
+server
 ```
-
-Then open your browser at `http://localhost:4200`
-
-If you want a live-reloading option enabled open at `http://localhost:4200/webpack-dev-server/index.html`
 
 ## build
 
@@ -66,7 +64,7 @@ clear
 
 ## info
 
-Prints the info of the current project. (not implemented yet)
+Prints the info of the current project.
 
 ```
 info
@@ -85,5 +83,5 @@ pwd
 Changes current working directory.
 
 ```
-cd -p /Users/jan/Desktop/app
+cd /Users/jan/Desktop/app
 ```

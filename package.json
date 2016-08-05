@@ -1,6 +1,6 @@
 {
   "name": "ng2-cli",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "angular-cli alternative made with vorpal",
   "main": "ng2.ts",
   "bin": {
@@ -8,6 +8,10 @@
   },
   "scripts": {
     "test": "node ./tests/run.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jkuri/ng2-cli.git"
   },
   "author": "Jan Kuri <jkuri88@gmail.com>",
   "license": "MIT",
