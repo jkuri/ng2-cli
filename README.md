@@ -1,6 +1,6 @@
-## Angular 2 CLI Alternative
+## Angular 2 CLI
 
-Vorpal based CLI for Angular2 applications.
+Vorpal & Webpack based CLI for Angular2 applications.
 
 ### Installation
 
@@ -15,6 +15,7 @@ Start cli with the `ng2` command.
 ### Available Commands
 
 * [new](#new)
+* [generate](#generate)
 * [serve](#serve)
 * [build](#build)
 * [info](#info)
@@ -36,6 +37,19 @@ new app [--path /Users/jan/Desktop]
 * `path` - path where project will be created
 * `skip-npm` - skips the npm dependencies installation
 * `skip-git` - skips git initialization
+
+## generate
+
+Generates Angular2 component.
+
+Scaffold  | Usage
+---       | ---
+Component | `generate component my-new-component`
+Directive | `generate directive my-new-directive`
+Pipe      | `generate pipe my-new-pipe`
+Service   | `generate service my-new-service`
+Class     | `generate class my-new-class`
+Interface | `generate interface my-new-interface`
 
 ## server
 
