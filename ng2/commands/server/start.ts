@@ -3,6 +3,7 @@ import * as chalk from 'chalk';
 import * as webpack from 'webpack';
 import * as webserv from 'webpack-dev-server';
 import * as open from 'open';
+import { getDevConfig } from '../../config/webpack/webpack.config.dev';
 import { Helper } from '../../lib/helper';
 import { Dir } from '../../lib/dir';
 import { Utils } from '../../lib/utils';
@@ -29,8 +30,10 @@ export function startServerCommand(s: any): any {
     })
     .action((args, cb) => {
       let port = helper.isInt(args.options.port) ? parseInt(args.options.port, 10) : 4200;
-      let config = require(path.join(process.env.CLI_ROOT, 'ng2/config/webpack/webpack.dev.js'));
-      let compiler = webpack(config);      
+      let config = getDevConfig();
+      let compiler = webpack(config);
+
+      config.entry.app.unshift(`webpack-dev-server/client?http://localhost:${port}/`);      
 
       server = new webserv(compiler, {
         contentBase: './src',

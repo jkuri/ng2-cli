@@ -46,6 +46,7 @@ export function newCommand(cli: any): any {
       })
       .then(() => {
         process.chdir(fullPath);
+        process.env.PWD = fullPath;
         cli.ui.log(chalk.yellow('Installing npm dependencies, this can take a while...'));
         return npm.install(null, cli);
       })

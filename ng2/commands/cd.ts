@@ -8,9 +8,10 @@ export function cdCommand(cli: any): any {
   return cli
     .command('cd [path]', 'Change current working directory.')
     .action((args, cb) => {
-      const path = args.path;
-      if (dir.isDir(path)) {
-        process.chdir(path);
+      const dirPath = args.path;
+      if (dir.isDir(dirPath)) {
+        process.chdir(dirPath);
+        process.env.PWD = path.resolve(dirPath);
         cli.ui.log(chalk.yellow(`Current working directory: ${path.resolve(process.cwd())}`));
       }
 

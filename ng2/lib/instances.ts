@@ -8,7 +8,7 @@ export function create(name: string, delimiter: string): any {
     if (!delimiter) {
       delimiter = '$';
     }
-    instances[name] = new vorpal().delimiter(chalk.bold(delimiter));
+    instances[name] = new vorpal(null).delimiter(chalk.bold(delimiter));
 
     return instances[name];
   }

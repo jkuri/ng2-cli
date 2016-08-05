@@ -3,12 +3,13 @@ import * as chalk from 'chalk';
 import * as webpack from 'webpack';
 import * as moment from 'moment';
 import * as progress from 'webpack/lib/ProgressPlugin';
+import { getProdConfig } from '../config/webpack/webpack.config.prod';
 
 export function buildCommand(cli: any): any {
   return cli
     .command('build', 'Builds your app.')
     .action((args, cb) => {
-      let config = require(path.join(process.env.CLI_ROOT, 'ng2/config/webpack/webpack.prod.js'));
+      let config = getProdConfig();
       let compiler = webpack(config);
 
       compiler.apply(new progress((percentage, msg) => {
@@ -40,7 +41,14 @@ export function buildCommand(cli: any): any {
 
           let s = moment.duration(stats.time).seconds();
           let millis = moment.duration(stats.time).milliseconds();
-          cli.ui.log(chalk.green(`Build project successfully in ${s}.${millis}s.`));
+          if (!stats.errors.length) {
+            cli.ui.log(chalk.green(`Build project successfully in ${s}.${millis}s.`));
+          } else {
+            cli.ui.log(chalk.red(`Build failed.`));
+            stats.errors.forEach(error => {
+              cli.ui.log(error);
+            });
+          }
         }
 
         cb();

@@ -3,14 +3,16 @@ import * as fse from 'fs-extra';
 import * as path from 'path';
 import * as glob from 'glob';
 import * as chalk from 'chalk';
-import * as helper from './helper';
+import { Helper } from './helper';
+
+const helper: any = new Helper(); 
 
 export class Dir {
   isDir(dirPath: string): boolean {
     dirPath = path.resolve(dirPath);
 
     try {
-      const stats = fs.statSync(path);
+      const stats = fs.statSync(dirPath);
       return stats.isDirectory();
     } catch (e) {
       console.log(chalk.red(`Directory ${path} does not exists.`));
@@ -22,8 +24,8 @@ export class Dir {
     dirPath = path.resolve(dirPath);
 
     try {
-      if (this.isDir(path)) {
-        fse.remove(path);
+      if (this.isDir(dirPath)) {
+        fse.remove(dirPath);
         return true;
       }
     } catch (e) {
@@ -51,7 +53,7 @@ export class Dir {
   }
 
   isDirBuildable(): boolean {
-    let config = path.join(process.cwd(), 'angular-cli.json');
+    let config = path.join(process.cwd(), 'ng2-cli.json');
     return (helper.existsSync(config)) ? true : false;
   }
 
