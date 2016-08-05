@@ -3,8 +3,10 @@ import * as fse from 'fs-extra';
 import * as _ from 'lodash';
 import * as chalk from 'chalk';
 import { Dir } from './dir';
+import { Helper } from './helper';
 
 const dir = new Dir();
+const helper = new Helper();
 
 export class Blueprint {
   private model: string;
@@ -44,18 +46,28 @@ export class Blueprint {
   private _generateAndSave(filePath: string): void {
     let splitted = filePath.split(path.sep);
     let part = splitted.filter(p => {
-      return splitted.indexOf(p) > splitted.indexOf('blueprints')
-    }).join('/'); 
-    let from = filePath;
+      return splitted.indexOf(p) > splitted.indexOf(this.model)
+    }).join('/');
     let to = path.join(process.env.PWD, this.destDir, part);
 
-    fse.copySync(from, to);
-    console.log(`  ${part}`);
+    try {
+      if (!dir.isDir(filePath)) {
+        let contents = fse.readFileSync(filePath, 'utf8');
+        let template = _.template(contents, { variable: 'data' });
+        fse.outputFileSync(path.resolve(part), template({ data: this.data }), 'utf8');
+        console.log(`  ${part}`);
+      } else {
+        if (!helper.existsSync(path.resolve(part))) {
+          fse.mkdirsSync(path.resolve(part));
+        }
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
   }
 
   private _getDestDir(): string {
     let subDir = this.model === 'app' ? './' : `${this.model}s`;
-    
     return path.join(process.env.PWD, subDir);
   }
 
