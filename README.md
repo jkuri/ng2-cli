@@ -19,6 +19,7 @@ Start cli with the `ng2` command.
 * [serve](#serve)
 * [build](#build)
 * [info](#info)
+* [find](#find)
 * [pwd](#pwd)
 * [cd](#cd)
 * [clear](#clear)
@@ -82,6 +83,14 @@ Prints the info of the current project.
 
 ```
 info
+```
+
+## find
+
+Searches for projects in current directory.
+
+```
+find
 ```
 
 ## pwd
