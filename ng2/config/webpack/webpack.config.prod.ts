@@ -5,9 +5,8 @@ import * as WebpackMd5 from 'webpack-md5-hash';
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
 
-const projectRoot: string = process.env.PWD;
-
 export function getProdConfig(): any {
+  const projectRoot: string = process.env.PWD;
   return {
     name: 'main',
     context: process.env.CLI_ROOT,

@@ -5,9 +5,9 @@ import { Helper } from '../../lib/helper';
 
 const config: any = new Config();
 const helper: any = new Helper();
-const projectRoot: string = process.env.PWD;
 
 export function getCSSConfig() {
+  const projectRoot: string = process.env.PWD;
   const styles = config.getJSON().apps.map(app => app.styles);
   let entries = {};
 

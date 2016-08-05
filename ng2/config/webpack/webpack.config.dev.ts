@@ -4,9 +4,8 @@ import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
 
-const projectRoot: string = process.env.PWD;
-
 export function getDevConfig(): any {
+  const projectRoot: string = process.env.PWD;
   return {
     name: 'main',
     debug: true,
