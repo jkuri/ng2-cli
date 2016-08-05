@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 
 export class String {
   getClassifiedName(str: string): string {
-    return _.capitalize(_.camelCase(str));
+    return _.startCase(_.camelCase(str)).replace(/ /g, '');
   }
 
   getDasherizedName(str: string): string {

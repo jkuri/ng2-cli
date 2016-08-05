@@ -19,15 +19,20 @@ export function newCommand(cli: any): any {
       boolean: ['skip-npm', 'sn', 'skip-git', 'sg']
     })
     .validate((args) => {
+      if (dir.isDirBuildable()) {
+        cli.ui.log(chalk.yellow('Cannot run `new` inside of a project.'));
+        return false;
+      }
+
       let params = args.options;
       let name = args.name;
       let valid = true;
       
       if (!name) {
-        cli.ui.log('- project name is mandatory');
+        cli.ui.log(chalk.yellow('Project name is mandatory'));
         valid = false;
       } else if (name.length < 2) {
-        cli.ui.log('- name of a project must be at least 2 chars long.');
+        cli.ui.log(chalk.yellow('Name of a project must be at least 2 chars long.'));
         valid = false;
       }
 

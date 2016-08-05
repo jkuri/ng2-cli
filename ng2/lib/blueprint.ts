@@ -50,9 +50,10 @@ export class Blueprint {
     }).join('/');
     let to; 
     if (this.model !== 'project') {
-      to = path.join('src', 'app', `${this.model}s`, path.basename(part).replace(/name/, this.name));
+      to = path.join('src', 'app', `${this.model}s`, 
+        this.name, path.basename(part).replace(/name/, this.name));
     } else {
-      to = path;
+      to = part;
     }
 
     try {
@@ -77,7 +78,8 @@ export class Blueprint {
   }
 
   private _getDir(): string {
-    let modelDir = path.join(process.env.CLI_ROOT, `ng2/blueprints/${this.model}`);
+    let modelDir = path.join(process.env.CLI_ROOT, 
+      `ng2/blueprints/${this.model}`);
     if (dir.isDir(modelDir)) {
       return modelDir;
     } else {

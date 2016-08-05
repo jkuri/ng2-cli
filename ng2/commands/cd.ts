@@ -12,7 +12,11 @@ export function cdCommand(cli: any): any {
       if (dir.isDir(dirPath)) {
         process.chdir(dirPath);
         process.env.PWD = path.resolve(dirPath);
-        cli.ui.log(chalk.yellow(`Current working directory: ${path.resolve(process.cwd())}`));
+        if (dir.isDirBuildable()) {
+          cli.ui.log(chalk.green('You are inside of a project root.'));
+        } else {
+          cli.ui.log(chalk.yellow(`Current working directory: ${path.resolve(process.cwd())}`));
+        }
       }
 
       cb();
