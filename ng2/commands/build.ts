@@ -1,6 +1,5 @@
 import * as chalk from 'chalk';
 import * as webpack from 'webpack';
-import * as moment from 'moment';
 import * as progress from 'webpack/lib/ProgressPlugin';
 import { getProdConfig, getCSSConfig } from '../config/webpack/';
 import { Dir } from '../lib/dir';
@@ -34,24 +33,18 @@ export function buildCommand(cli: any): any {
         if (err) {
           cli.ui.log(chalk.red(err));
         } else {
-          stats = stats.toJson({
-            hash: false,
-            version: false,
-            timings: true,
+          let prettyStats = stats.toString({
             assets: true,
-            chunks: false,
+            timings: true,
+            cached: false,
             modules: false,
-            children: false,
-            cache: false,
-            reasons: false,
-            source: false,
-            errorDetails: false
+            warnings: false,
+            chunkModules: false
           });
 
-          let s = moment.duration(stats.time).seconds();
-          let millis = moment.duration(stats.time).milliseconds();
-          if (!stats.errors.length) {
-            cli.ui.log(chalk.green(`Build project successfully in ${s}.${millis}s.`));
+          if (!stats.hasErrors()) {
+            cli.ui.log(`${prettyStats}`);
+            cli.ui.log(chalk.green(`Build project successfully.`));
           } else {
             cli.ui.log(chalk.red(`Build failed.`));
             stats.errors.forEach(error => {

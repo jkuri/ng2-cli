@@ -5,6 +5,8 @@ import * as WebpackMd5 from 'webpack-md5-hash';
 import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
 
+const projectRoot: string = process.env.PWD;
+
 export function getProdConfig(): any {
   return {
     name: 'main',
@@ -12,13 +14,13 @@ export function getProdConfig(): any {
     devtool: 'source-map',
     entry: {
       app: [
-        path.join(process.env.PWD, './src/polyfills'), 
-        path.join(process.env.PWD, './src/vendor'),
-        path.join(process.env.PWD, './src/main')
+        path.join(projectRoot, './src/polyfills'), 
+        path.join(projectRoot, './src/vendor'),
+        path.join(projectRoot, './src/main')
       ]
     }, 
     output: {
-      path: path.join(process.env.PWD, './build'),
+      path: path.join(projectRoot, './build'),
       publicPath: '',
       filename: '[name].[chunkhash].bundle.js',
       sourceMapFilename: '[name].[chunkhash].bundle.map',
@@ -26,8 +28,7 @@ export function getProdConfig(): any {
     },
     resolve: {
       extensions: ['', '.ts', '.js', '.json'],
-      root: path.join(process.env.PWD, './src'),
-      moduleDirectories: ['node_modules']
+      root: path.join(projectRoot, './src')
     },
     module: {
       preLoaders: [
@@ -35,8 +36,8 @@ export function getProdConfig(): any {
           test: /\.js$/,
           loader: 'source-map-loader',
           exclude: [
-            path.join(process.env.PWD, 'node_modules/rxjs'),
-            path.join(process.env.PWD, 'node_modules/@angular'),
+            path.join(projectRoot, 'node_modules/rxjs'),
+            path.join(projectRoot, 'node_modules/@angular'),
           ]
         }
       ],
@@ -44,12 +45,12 @@ export function getProdConfig(): any {
         { test: /\.ts$/, loaders: [
           {
             loader: 'awesome-typescript-loader',
-            query: { useForkChecker: true, tsconfig: path.join(process.env.PWD, `./src/tsconfig.json`) }
+            query: { useForkChecker: true, tsconfig: path.join(projectRoot, `./src/tsconfig.json`) }
           }, 
           { loader: 'angular2-template-loader' }
-        ], exclude: [/\.(spec|e2e)\.ts$/] },
+        ], exclude: [/\.(spec|e2e)\.ts$/ },
         { test: /\.html$/, loader: 'html' },
-        { test: /\.css$/, include: path.resolve('src', 'app'), loader: 'raw' },
+        { test: /\.css$/, include: path.join(projectRoot, 'src', 'app'), loader: 'raw' },
         { test: /\.json$/, loader: 'json-loader' }
       ]
     },
@@ -60,7 +61,7 @@ export function getProdConfig(): any {
         name: ['app', 'vendor', 'polyfills']
       }),
       new HtmlWebpackPlugin({
-        template: path.join(process.env.PWD, './src/index.html'),
+        template: path.join(projectRoot, './src/index.html'),
         filename: 'index.html',
         chunksSortMode: 'dependency'
       }),
@@ -71,9 +72,9 @@ export function getProdConfig(): any {
         comments: false
       }),
       new CopyWebpackPlugin([{
-        context: path.resolve(process.env.PWD, './public'),
+        context: path.resolve(projectRoot, './public'),
         from: '**/*', 
-        to: path.resolve(process.env.PWD, './dist')
+        to: path.resolve(projectRoot, './build')
       }])
     ],
     tslint: {
