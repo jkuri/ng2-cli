@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as webpack from 'webpack';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import * as WebpackMd5 from 'webpack-md5-hash';
+import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
 
 export function getProdConfig(): any {
@@ -28,6 +29,16 @@ export function getProdConfig(): any {
       moduleDirectories: ['node_modules']
     },
     module: {
+      preLoaders: [
+        {
+          test: /\.js$/,
+          loader: 'source-map-loader',
+          exclude: [
+            path.join(process.env.PWD, 'node_modules/rxjs'),
+            path.join(process.env.PWD, 'node_modules/@angular'),
+          ]
+        }
+      ],
       loaders: [
         { test: /\.ts$/, loaders: [
           {
@@ -57,7 +68,12 @@ export function getProdConfig(): any {
         mangle: { screw_ie8: true },
         compress: { screw_ie8: true },
         comments: false
-      })
+      }),
+      new CopyWebpackPlugin([{
+        context: path.resolve(projectRoot, './public'),
+        from: '**/*', 
+        to: path.resolve(projectRoot, './dist')
+      }])
     ],
     tslint: {
       emitErrors: true,

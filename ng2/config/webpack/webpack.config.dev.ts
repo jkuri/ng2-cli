@@ -1,10 +1,13 @@
 import * as webpack from 'webpack';
 import * as path from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
 
 export function getDevConfig(): any {
   return {
+    debug: true,
+    devtool: 'cheap-module-source-map',
     context: process.env.CLI_ROOT,
     entry: {
       app: [
@@ -15,8 +18,9 @@ export function getDevConfig(): any {
     }, 
     output: {
       path: path.join(process.env.PWD, './build'),
-      publicPath: '',
-      filename: '[name].bundle.js'
+      filename: '[name].bundle.js',
+      sourceMapFilename: '[name].map',
+      chunkFilename: '[id].chunk.js'
     },
     resolve: {
       root: path.join(process.env.PWD, './src'),
@@ -24,6 +28,16 @@ export function getDevConfig(): any {
       moduleDirectories: ['node_modules']
     },
     module: {
+      preLoaders: [
+        {
+          test: /\.js$/,
+          loader: 'source-map-loader',
+          exclude: [
+            path.join(process.env.PWD, 'node_modules/rxjs'),
+            path.join(process.env.PWD, 'node_modules/@angular'),
+          ]
+        }
+      ],
       loaders: [
         { test: /\.ts$/, loaders: [
           {
@@ -39,22 +53,33 @@ export function getDevConfig(): any {
     },
     plugins: [
       new TsConfigPathsPlugin(),
-
       new webpack.optimize.CommonsChunkPlugin({
         name: ['app', 'vendor', 'polyfills']
       }),
-
       new HtmlWebpackPlugin({
         template: path.join(process.env.PWD, './src/index.html'),
         filename: 'index.html',
         chunksSortMode: 'dependency',
         dev: true
-      })
+      }),
+      new CopyWebpackPlugin([{
+        context: path.join(process.env.PWD, './public'),
+        from: '**/*', 
+        to: path.resolve(process.env.PWD, './dist')
+      }])
     ],
     tslint: {
-      emitErrors: true,
-      failOnHint: true,
+      emitErrors: false,
+      failOnHint: false,
       resourcePath: 'src'
+    },
+    node: {
+      global: 'window',
+      crypto: 'empty',
+      process: true,
+      module: false,
+      clearImmediate: false,
+      setImmediate: false
     }
   }
 };
