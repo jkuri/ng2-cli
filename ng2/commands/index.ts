@@ -5,6 +5,7 @@ export * from './clear';
 export * from './clean';
 export * from './info';
 export * from './build';
+export * from './find';
 export * from './server';
 export * from './generate';
 export * from './server/quit';

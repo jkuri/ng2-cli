@@ -16,6 +16,7 @@ commands.cleanCommand(main);
 commands.infoCommand(main);
 commands.buildCommand(main);
 commands.generateCommand(main);
+commands.findCommand(main);
 commands.serverCommand(main, server);
 commands.startServerCommand(server);
 commands.statusServerCommand(server);
