@@ -70,9 +70,9 @@ export function getProdConfig(): any {
         comments: false
       }),
       new CopyWebpackPlugin([{
-        context: path.resolve(projectRoot, './public'),
+        context: path.resolve(process.env.PWD, './public'),
         from: '**/*', 
-        to: path.resolve(projectRoot, './dist')
+        to: path.resolve(process.env.PWD, './dist')
       }])
     ],
     tslint: {

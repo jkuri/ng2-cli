@@ -1,1 +1,1 @@
-export * from './<%= name %>.pipe';
+export * from './<%= data.name %>.pipe';

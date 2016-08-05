@@ -18,7 +18,7 @@ export function infoCommand(cli: any): any {
       let jsonPath = path.resolve('./ng2-cli.json');
       let contents = fs.readFileSync(jsonPath, 'utf8');
       cli.ui.log(chalk.yellow('Project info:'));
-      cli.ui.log(JSON.stringify(contents, null, 2));
+      cli.ui.log(contents);
       cb();
     });
 };
