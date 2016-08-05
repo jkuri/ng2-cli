@@ -33,7 +33,7 @@ export class Blueprint {
 
     return new Promise(resolve => {
       this._getFiles().then(files => {
-        console.log(chalk.green(`Generating files from \`${this.model}\``));
+        console.log(chalk.green(`Generating files from \`${this.model}\`.`));
         files.forEach(file => {
           that._generateAndSave(file);
         });
@@ -46,19 +46,24 @@ export class Blueprint {
   private _generateAndSave(filePath: string): void {
     let splitted = filePath.split(path.sep);
     let part = splitted.filter(p => {
-      return splitted.indexOf(p) > splitted.indexOf(this.model)
+      return splitted.indexOf(p) > splitted.indexOf(this.model);
     }).join('/');
-    let to = path.join(process.env.PWD, this.destDir, part);
+    let to; 
+    if (this.model !== 'project') {
+      to = path.join('src', 'app', `${this.model}s`, path.basename(part).replace(/name/, this.name));
+    } else {
+      to = path;
+    }
 
     try {
       if (!dir.isDir(filePath)) {
         let contents = fse.readFileSync(filePath, 'utf8');
         let template = _.template(contents, { variable: 'data' });
-        fse.outputFileSync(path.resolve(part), template({ data: this.data }), 'utf8');
-        console.log(`  ${part}`);
+        fse.outputFileSync(to, template(this.data), 'utf8');
+        console.log(`  ${to}`);
       } else {
-        if (!helper.existsSync(path.resolve(part))) {
-          fse.mkdirsSync(path.resolve(part));
+        if (!helper.existsSync(to)) {
+          fse.mkdirsSync(to);
         }
       }
     } catch (e) {

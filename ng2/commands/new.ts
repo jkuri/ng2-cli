@@ -1,6 +1,7 @@
 import { Dir } from '../lib/dir';
 import { Npm } from '../lib/npm';
 import { Utils } from '../lib/utils';
+import { Blueprint } from '../lib/blueprint';
 import * as chalk from 'chalk';
 
 export function newCommand(cli: any): any {
@@ -41,12 +42,12 @@ export function newCommand(cli: any): any {
       dir.makeDir(params.path, params.name)
       .then(() => cli.ui.log(chalk.green(`Directory successfully initialized at ${fullPath}.`)))
       .then(() => {
-        cli.ui.log(chalk.yellow('Copying project files into destination directory.'));
-        return dir.copy(null, fullPath, null, cli);
-      })
-      .then(() => {
         process.chdir(fullPath);
         process.env.PWD = fullPath;
+        let blueprint = new Blueprint('project', '', { name: params.name });
+        return blueprint.generate();
+      })
+      .then(() => {
         cli.ui.log(chalk.yellow('Installing npm dependencies, this can take a while...'));
         return npm.install(null, cli);
       })

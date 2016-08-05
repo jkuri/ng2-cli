@@ -5,16 +5,17 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
   imports: [
     BrowserModule,
     CommonModule,
     FormsModule
   ],
-  entryComponents: [AppComponent]
+  entryComponents: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(appRef: ApplicationRef) {
-    appRef.bootstrap(AppComponent);
-  }
+  
 }

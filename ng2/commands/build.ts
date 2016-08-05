@@ -4,10 +4,19 @@ import * as webpack from 'webpack';
 import * as moment from 'moment';
 import * as progress from 'webpack/lib/ProgressPlugin';
 import { getProdConfig } from '../config/webpack/webpack.config.prod';
+import { Dir } from '../lib/dir';
+
+const dir: any = new Dir();
 
 export function buildCommand(cli: any): any {
   return cli
     .command('build', 'Builds your app.')
+    .validate((args, cb) => {
+      if (!dir.isDirBuildable()) {
+        cli.ui.log(chalk.yellow('Cannot build outside of the project directory.'));
+        return false;
+      }
+    })
     .action((args, cb) => {
       let config = getProdConfig();
       let compiler = webpack(config);
