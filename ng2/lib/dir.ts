@@ -1,11 +1,10 @@
 import * as fs from 'fs';
 import * as fse from 'fs-extra';
 import * as path from 'path';
-import * as glob from 'glob';
 import * as chalk from 'chalk';
 import { Helper } from './helper';
 
-const helper: any = new Helper(); 
+const helper: any = new Helper();
 
 export class Dir {
   isDir(dirPath: string): boolean {
@@ -43,7 +42,7 @@ export class Dir {
     return new Promise((resolve, reject) => {
       dirPath = this.joinPath(dirPath, dirName);
 
-      try { 
+      try {
         fse.mkdirsSync(dirPath);
         resolve();
       } catch (e) {

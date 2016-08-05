@@ -6,6 +6,7 @@ import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
 
 export function getDevConfig(): any {
   return {
+    name: 'main',
     debug: true,
     devtool: 'cheap-module-source-map',
     context: process.env.CLI_ROOT,

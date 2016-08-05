@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import * as chalk from 'chalk';
-import { Dir } from '../lib/dir'; 
+import { Dir } from '../lib/dir';
 
 const dir: any = new Dir();
 

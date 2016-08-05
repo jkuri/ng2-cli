@@ -7,6 +7,7 @@ import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
 
 export function getProdConfig(): any {
   return {
+    name: 'main',
     context: process.env.CLI_ROOT,
     devtool: 'source-map',
     entry: {

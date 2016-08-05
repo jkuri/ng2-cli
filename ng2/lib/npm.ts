@@ -19,7 +19,7 @@ export class Npm {
       'save-dev': true,
       'save-exact': false,
       depth: 0
-    }
+    };
   }
 
   install(): Promise<void> {
@@ -27,7 +27,7 @@ export class Npm {
       this.utils.startSpinner();
 
       npm.load(this.options, err => {
-        npm.commands.install('', [], (err) => {
+        npm.commands.install('', [], error => {
           this.utils.stopSpinner();
           resolve();
         });

@@ -1,9 +1,8 @@
-import * as path from 'path';
 import * as chalk from 'chalk';
 import * as webpack from 'webpack';
 import * as moment from 'moment';
 import * as progress from 'webpack/lib/ProgressPlugin';
-import { getProdConfig } from '../config/webpack/webpack.config.prod';
+import { getProdConfig, getCSSConfig } from '../config/webpack/';
 import { Dir } from '../lib/dir';
 
 const dir: any = new Dir();
@@ -19,7 +18,8 @@ export function buildCommand(cli: any): any {
     })
     .action((args, cb) => {
       let config = getProdConfig();
-      let compiler = webpack(config);
+      let cssConfig = getCSSConfig();
+      let compiler = webpack([config, cssConfig]);
 
       compiler.apply(new progress((percentage, msg) => {
         if (percentage !== 1) {

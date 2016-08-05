@@ -14,7 +14,6 @@ export class Blueprint {
   private data: any;
   private destDir: string;
   private modelDir: string;
-  private files: any[];
 
   constructor(
     model: string,
@@ -48,9 +47,9 @@ export class Blueprint {
     let part = splitted.filter(p => {
       return splitted.indexOf(p) > splitted.indexOf(this.model);
     }).join('/');
-    let to; 
+    let to;
     if (this.model !== 'project') {
-      to = path.join('src', 'app', `${this.model}s`, 
+      to = path.join('src', 'app', `${this.model}s`,
         this.name, path.basename(part).replace(/name/, this.name));
     } else {
       to = part;
@@ -78,7 +77,7 @@ export class Blueprint {
   }
 
   private _getDir(): string {
-    let modelDir = path.join(process.env.CLI_ROOT, 
+    let modelDir = path.join(process.env.CLI_ROOT,
       `ng2/blueprints/${this.model}`);
     if (dir.isDir(modelDir)) {
       return modelDir;

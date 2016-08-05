@@ -24,10 +24,8 @@ export function newCommand(cli: any): any {
         return false;
       }
 
-      let params = args.options;
       let name = args.name;
       let valid = true;
-      
       if (!name) {
         cli.ui.log(chalk.yellow('Project name is mandatory'));
         valid = false;
