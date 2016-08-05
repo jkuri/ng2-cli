@@ -6,7 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['<%= data.dasherizedName %>.component.css']
 })
 export class <%= data.classifiedName %>Component {
-  constructor() {
-    
-  }
+  constructor() { }
 }
