@@ -6,14 +6,14 @@ import { ng2, npm, existsSync } from '../helpers';
 
 describe('E2E Workflow', () {
   before(() => {
-    process.env.CLI_ROOT = path.resolve(__dirname, '../../');
+    process.env.CLI_ROOT = path.resolve(__dirname, '../');
     fs.ensureDirSync('tmp');
     process.chdir('tmp');
   });
 
   after(() => {
-    process.chdir('../../');
-    rimraf.sync('tmp');
+    // process.chdir('../../');
+    // rimraf.sync('tmp');
   });
 
   it('Does install ng2-cli', () => {

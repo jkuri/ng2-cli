@@ -2,14 +2,12 @@ import * as fs from 'fs';
 import { spawn } from 'child_process';
 import { getInstances } from '../ng2';
 
-export function ng2(args: string[], instance: string): Promise<any> {
+export function ng2(args: string[], instance: string): any {
   let instances = getInstances();
   instances['main'].delimiter('');
   instances['server'].delimiter('');
 
-  return new Promise(resolve => {
-    resolve(instances[instance].exec(args.join(' ')));
-  });
+  return instances[instance].exec(args.join(' '));
 }
 
 export function npm(args: string[]): Promise<any> {

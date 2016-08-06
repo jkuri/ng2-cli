@@ -39,7 +39,7 @@ export function newCommand(cli: any): any {
     .action((args, cb) => {
       let params = args.options;
       params.name = args.name;
-      params.path = params.parh ? params.path : '.';
+      params.path = params.path ? params.path : '.';
       const fullPath = dir.joinPath(params.path, params.name);
 
       dir.makeDir(params.path, params.name)

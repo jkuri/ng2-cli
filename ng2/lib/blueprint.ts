@@ -104,7 +104,7 @@ export class Blueprint {
   }
 
   private _getDestDir(): string {
-    let subDir = this.model === 'app' ? './' : `${this.model}s`;
+    let subDir = this.model === 'project' ? './' : `${this.model}s`;
     return path.join(process.env.PWD, subDir);
   }
 
