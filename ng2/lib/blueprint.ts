@@ -69,7 +69,7 @@ export class Blueprint {
         let contents = fse.readFileSync(filePath, 'utf8');
         let template = _.template(contents, { variable: 'data' });
         fse.outputFileSync(to, template(this.data), 'utf8');
-        console.log(`  ${to}`);
+        console.log(`  ${chalk.green('create')} ${to}`);
       } else {
         if (!helper.existsSync(to)) {
           fse.mkdirsSync(to);
