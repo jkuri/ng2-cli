@@ -12,11 +12,10 @@ describe('E2E Workflow', () {
   });
 
   after(() => {
+    process.chdir(process.env.CLI_ROOT);
+    rimraf.sync('tmp');
     setTimeout(() => {
-      return ng2(['exit'], 'main').then(() => {
-        process.chdir(process.env.CLI_ROOT);
-        rimraf.sync('tmp');
-      });
+      ng2(['exit'], 'main');
     }, 1000);
   });
 

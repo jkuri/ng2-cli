@@ -1,5 +1,10 @@
 ## Angular 2 CLI
 
+[![Build Status](https://travis-ci.org/jkuri/ng2-cli.svg?branch=master)](https://travis-ci.org/jkuri/ng2-cli)
+<a href="https://www.npmjs.com/package/ng2-cli">
+  <img src="https://img.shields.io/npm/v/ng2-cli.svg" alt="NPM Version" />
+</a>
+
 Vorpal & Webpack based CLI for Angular2 applications.
 
 ### Installation
