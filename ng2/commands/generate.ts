@@ -4,7 +4,6 @@ import { String } from '../lib/string';
 import { Dir } from '../lib/dir';
 
 const dir = new Dir();
-const strUtils = new String();
 
 const models: Array = [
   'component',
@@ -34,10 +33,11 @@ export function generateCommand(cli: any): any {
     .action((args, cb) => {
       let model = args.model;
       let name = args.name;
+      const strUtils = new String(args.name);
       let data = {
         name: args.name,
-        dasherizedName: strUtils.getDasherizedName(args.name),
-        classifiedName: strUtils.getClassifiedName(args.name)
+        dasherizedName: strUtils.getDasherizedName(),
+        classifiedName: strUtils.getClassifiedName()
       };
       let blueprint = new Blueprint(model, name, data);
 

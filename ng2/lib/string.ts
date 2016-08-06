@@ -1,11 +1,13 @@
 import * as _ from 'lodash';
 
 export class String {
-  getClassifiedName(str: string): string {
-    return _.startCase(_.camelCase(str)).replace(/ /g, '');
+  constructor(private str: string) { }
+
+  getClassifiedName(): string {
+    return _.startCase(_.camelCase(this.str)).replace(/ /g, '');
   }
 
-  getDasherizedName(str: string): string {
-    return _.kebabCase(str);
+  getDasherizedName(): string {
+    return _.kebabCase(this.str);
   }
 }
