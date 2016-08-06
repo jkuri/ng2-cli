@@ -1,6 +1,6 @@
 {
   "name": "ng2-cli",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "angular-cli alternative made with vorpal",
   "main": "ng2.ts",
   "bin": {
