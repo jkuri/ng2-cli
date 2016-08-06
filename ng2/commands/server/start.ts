@@ -40,6 +40,7 @@ export function startServerCommand(s: any): any {
       server = new webserv(compiler, {
         contentBase: './src',
         quiet: true,
+        historyApiFallback: true,
         watchOptions: {
           aggregateTimeout: 1000,
           poll: 100
