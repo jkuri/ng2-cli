@@ -29,7 +29,7 @@ Start cli with the `ng2` command.
 Creates new project and steps into directory.
 
 ```sh
-new app [--path /Users/jan/Desktop]
+new my-awesome-project
 ```
 
 #### Available options
@@ -51,6 +51,8 @@ Pipe      | `generate pipe my-new-pipe`
 Service   | `generate service my-new-service`
 Class     | `generate class my-new-class`
 Interface | `generate interface my-new-interface`
+
+All generated components are automatically imported into main AppModule and injected in declarations.
 
 ## server
 
