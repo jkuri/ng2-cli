@@ -25,3 +25,10 @@ commands.clearCommand(server);
 commands.quitServerCommand(server, main);
 
 main.show();
+
+export function getInstances(): Object {
+  return {
+    main: main, 
+    server: server
+  };
+}
