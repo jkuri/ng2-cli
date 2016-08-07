@@ -1,6 +1,5 @@
 import * as ts from 'typescript';
 import * as fs from 'fs';
-import { String } from './string';
 
 interface Change {
   apply(): Promise<any>;
@@ -90,9 +89,9 @@ export class InsertChange implements Change {
 
   apply(): Promise<any> {
     return new Promise((resolve, reject) => {
-      fs.readFile(this.path, 'utf8', (err, content: string) => {
-        if (err) {
-          throw new Error(err);
+      fs.readFile(this.path, 'utf8', (error, content: string) => {
+        if (error) {
+          throw new Error(error);
         }
 
         let prefix: string = content.substring(0, this.pos);
