@@ -56,8 +56,12 @@ export function getProdConfig(): any {
     plugins: [
       new TsConfigPathsPlugin(),
       new WebpackMd5(),
+      new webpack.optimize.DedupePlugin(),
       new webpack.optimize.CommonsChunkPlugin({
-        name: ['app', 'vendor', 'polyfills']
+        minChunks: Infinity,
+        name: 'inline',
+        filename: 'inline.js',
+        sourceMapFilename: 'inline.map'
       }),
       new HtmlWebpackPlugin({
         template: path.join(projectRoot, './src/index.html'),
@@ -66,13 +70,13 @@ export function getProdConfig(): any {
       }),
       new webpack.optimize.UglifyJsPlugin({
         beautify: false,
-        mangle: { screw_ie8: true },
+        mangle: { screw_ie8 : true, keep_fnames: true },
         compress: { screw_ie8: true },
         comments: false
       }),
       new CopyWebpackPlugin([{
         context: path.resolve(projectRoot, './public'),
-        from: '**/*', 
+        from: '**/*',
         to: path.resolve(projectRoot, './build')
       }])
     ],
